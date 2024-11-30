@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync, writeFileSync } from "fs";
-import { join, resolve } from "path";
-import { createInterface } from "readline";
+const fs = require("fs");
+const path = require("path");
+const readline = require("readline");
 
 function fixExactVersions(projectPath) {
-	if (!existsSync(projectPath)) {
+	if (!fs.existsSync(projectPath)) {
 		console.error(`The path "${projectPath}" does not exist. Exiting...`);
 		process.exit(1);
 	}
 
-	const packageJsonPath = join(projectPath, "package.json");
-	const packageLockJsonPath = join(projectPath, "package-lock.json");
+	const packageJsonPath = path.join(projectPath, "package.json");
+	const packageLockJsonPath = path.join(projectPath, "package-lock.json");
 
 	// Check if both files exist
-	if (!existsSync(packageJsonPath) || !existsSync(packageLockJsonPath)) {
+	if (!fs.existsSync(packageJsonPath) || !fs.existsSync(packageLockJsonPath)) {
 		console.error(
 			'Error: "package.json" or "package-lock.json" files not found in the provided path.'
 		);
@@ -22,8 +22,10 @@ function fixExactVersions(projectPath) {
 	}
 
 	// Read and parse both files
-	const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"));
-	const packageLockJson = JSON.parse(readFileSync(packageLockJsonPath, "utf8"));
+	const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+	const packageLockJson = JSON.parse(
+		fs.readFileSync(packageLockJsonPath, "utf8")
+	);
 
 	// Update the exact versions
 	const updateDependencies = (dependencies) => {
@@ -47,7 +49,11 @@ function fixExactVersions(projectPath) {
 	updateDependencies(packageJson.devDependencies);
 
 	// Save the updated package.json
-	writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2), "utf8");
+	fs.writeFileSync(
+		packageJsonPath,
+		JSON.stringify(packageJson, null, 2),
+		"utf8"
+	);
 
 	console.log("The package.json file has been updated with exact versions.");
 	console.log(
@@ -56,7 +62,7 @@ function fixExactVersions(projectPath) {
 }
 
 function promptForPath() {
-	const rl = createInterface({
+	const rl = readline.createInterface({
 		input: process.stdin,
 		output: process.stdout,
 	});
@@ -67,7 +73,7 @@ function promptForPath() {
 			process.exit(0);
 		}
 
-		const projectPath = resolve(inputPath.trim());
+		const projectPath = path.resolve(inputPath.trim());
 
 		fixExactVersions(projectPath);
 		rl.close();
@@ -79,6 +85,6 @@ const args = process.argv.slice(2);
 if (args.length === 0) {
 	promptForPath();
 } else {
-	const projectPath = resolve(args[0]);
+	const projectPath = path.resolve(args[0]);
 	fixExactVersions(projectPath);
 }
