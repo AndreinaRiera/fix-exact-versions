@@ -1,0 +1,44 @@
+# Node.js
+node_modules/
+
+# Log files
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Dependency directories
+bower_components/
+
+# Build directories
+dist/
+build/
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Coverage directory for code coverage reports
+coverage/
+
+# npm package lock file
+package-lock.json
+
+# Debugger configuration
+.vscode/
+
+# Optional npm cache directory
+.npm/
+
+# VS Code directories and files
+.vscode/

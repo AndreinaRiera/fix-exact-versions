@@ -3,20 +3,31 @@
 const fs = require("fs");
 const path = require("path");
 const readline = require("readline");
+const chalk = require("chalk");
+const ora = require("ora");
+
+const printDivider = () => {
+	console.log(chalk.gray("-".repeat(50)));
+};
 
 function fixExactVersions(projectPath) {
+	const spinner = ora(chalk.yellow("Checking project files...")).start();
+
 	if (!fs.existsSync(projectPath)) {
-		console.error(`The path "${projectPath}" does not exist. Exiting...`);
+		spinner.fail(
+			chalk.red(`The path "${projectPath}" does not exist. Exiting...`)
+		);
 		process.exit(1);
 	}
 
 	const packageJsonPath = path.join(projectPath, "package.json");
 	const packageLockJsonPath = path.join(projectPath, "package-lock.json");
 
-	// Check if both files exist
 	if (!fs.existsSync(packageJsonPath) || !fs.existsSync(packageLockJsonPath)) {
-		console.error(
-			'Error: "package.json" or "package-lock.json" files not found in the provided path.'
+		spinner.fail(
+			chalk.red(
+				'Error: "package.json" or "package-lock.json" files not found in the provided path.'
+			)
 		);
 		process.exit(1);
 	}
@@ -32,19 +43,23 @@ function fixExactVersions(projectPath) {
 		if (!dependencies) return;
 
 		for (const dep in dependencies) {
-			const packageLockConfigOject = packageLockJson?.dependencies?.[dep];
+			const packageLockConfigObject = packageLockJson?.dependencies?.[dep];
 
-			if (packageLockConfigOject && packageLockConfigOject?.version) {
-				if (dependencies[dep] !== packageLockConfigOject.version) {
-					const newVersion = packageLockConfigOject.version;
+			if (packageLockConfigObject && packageLockConfigObject?.version) {
+				if (dependencies[dep] !== packageLockConfigObject.version) {
+					const newVersion = packageLockConfigObject.version;
 
 					console.log(
-						`Updated "${dep}" - "${dependencies[dep]}" to "${newVersion}".`
+						chalk.green(
+							`Updated "${dep}" - "${dependencies[dep]}" to "${newVersion}".`
+						)
 					);
 					dependencies[dep] = newVersion;
 				}
 			} else {
-				console.warn(`Warning: "${dep}" not found in package-lock.json.`);
+				console.warn(
+					chalk.yellow(`Warning: "${dep}" not found in package-lock.json.`)
+				);
 			}
 		}
 	};
@@ -59,10 +74,16 @@ function fixExactVersions(projectPath) {
 		"utf8"
 	);
 
-	console.log("The package.json file has been updated with exact versions.");
-	console.log(
-		"Thank you for preventing future version incompatibility issues! <3 Great job!"
+	spinner.succeed(
+		chalk.green("The package.json file has been updated with exact versions.")
 	);
+	printDivider();
+	console.log(
+		chalk.blue(
+			"Thank you for preventing future version incompatibility issues! <3 Great job!"
+		)
+	);
+	printDivider();
 }
 
 function promptForPath() {
@@ -71,14 +92,13 @@ function promptForPath() {
 		output: process.stdout,
 	});
 
-	rl.question("Please enter the project path: ", (inputPath) => {
+	rl.question(chalk.blue("Please enter the project path: "), (inputPath) => {
 		if (!inputPath) {
-			console.log("No path provided. Exiting...");
+			console.log(chalk.red("No path provided. Exiting..."));
 			process.exit(0);
 		}
 
 		const projectPath = path.resolve(inputPath.trim());
-
 		fixExactVersions(projectPath);
 		rl.close();
 	});
@@ -87,6 +107,7 @@ function promptForPath() {
 const args = process.argv.slice(2);
 
 if (args.length === 0) {
+	printDivider();
 	promptForPath();
 } else {
 	const projectPath = path.resolve(args[0]);
