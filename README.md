@@ -2,6 +2,9 @@
 
 A simple yet powerful Node.js tool to lock the exact versions of dependencies in your `package.json` based on the versions found in your `package-lock.json`. This ensures that your project always uses the exact same versions of packages, preventing future compatibility issues.
 
+> [!IMPORTANT]
+> This is a global tool, remember to install it globally with `npm install -g fix-exact-versions`.
+
 ---
 
 ## Table of Contents
@@ -86,5 +89,6 @@ Have you ever encountered the frustrating "it works on my machine" problem? By a
 With fix-exact-versions, you’ll never have to worry about mismatched versions again. It’s a simple, efficient, and reliable tool to streamline your development workflow and keep your projects stable.
 
 🎉 Thank you for preventing future version incompatibility issues! <3 Great job!
+
 License
-MIT © Andreina Riera
+MIT © [Andreina Riera](https://www.linkedin.com/in/andreinariera/)
