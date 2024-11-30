@@ -1,6 +1,6 @@
 {
 	"name": "fix-exact-versions",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "Global tool to fix project dependency versions to the exact versions from package-lock.json",
 	"repository": {
 		"type": "git",
