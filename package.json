@@ -2,6 +2,10 @@
 	"name": "fix-exact-versions",
 	"version": "1.0.3",
 	"description": "Global tool to fix project dependency versions to the exact versions from package-lock.json",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AndreinaRiera/fix-exact-versions.git"
+	},
 	"main": "index.js",
 	"bin": {
 		"fix-exact-versions": "index.js"
@@ -10,12 +14,26 @@
 		"npm",
 		"package.json",
 		"package-lock.json",
-		"exact versions"
+		"exact versions",
+		"dependency manager",
+		"version control"
 	],
 	"author": "Andreina Riera",
 	"license": "MIT",
 	"dependencies": {
 		"chalk": "^5.3.0",
 		"ora": "^8.1.1"
-	}
+	},
+	"scripts": {
+		"test": "echo \"No tests yet...\"",
+		"start": "node index.js"
+	},
+	"bugs": {
+		"url": "https://github.com/AndreinaRiera/fix-exact-versions/issues"
+	},
+	"homepage": "https://github.com/AndreinaRiera/fix-exact-versions",
+	"engines": {
+		"node": ">=14.0.0"
+	},
+	"preferGlobal": true
 }
