@@ -92,16 +92,17 @@ function promptForPath() {
 		output: process.stdout,
 	});
 
-	rl.question(chalk.blue("Please enter the project path: "), (inputPath) => {
-		if (!inputPath) {
-			console.log(chalk.red("No path provided. Exiting..."));
-			process.exit(0);
+	rl.question(
+		chalk.blue(
+			"Please enter the project path (leave empty to use the current directory): "
+		),
+		(inputPath) => {
+			// If no inputPath is provided, use the current working directory (cwd)
+			const projectPath = path.resolve(inputPath.trim() || process.cwd());
+			fixExactVersions(projectPath);
+			rl.close();
 		}
-
-		const projectPath = path.resolve(inputPath.trim());
-		fixExactVersions(projectPath);
-		rl.close();
-	});
+	);
 }
 
 const args = process.argv.slice(2);
