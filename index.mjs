@@ -43,7 +43,9 @@ function fixExactVersions(projectPath) {
 		if (!dependencies) return;
 
 		for (const dep in dependencies) {
-			const packageLockConfigObject = packageLockJson?.dependencies?.[dep];
+			const packageLockConfigObject =
+				packageLockJson?.dependencies?.[dep] ||
+				packageLockJson?.packages?.[`node_modules/${dep}`];
 
 			if (packageLockConfigObject && packageLockConfigObject?.version) {
 				if (dependencies[dep] !== packageLockConfigObject.version) {
