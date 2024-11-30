@@ -1,6 +1,6 @@
 {
 	"name": "fix-exact-versions",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Global tool to fix project dependency versions to the exact versions from package-lock.json",
 	"main": "index.js",
 	"bin": {
