@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
-const readline = require("readline");
-const chalk = require("chalk");
-const ora = require("ora");
+import chalk from "chalk";
+import fs from "fs";
+import ora from "ora";
+import path from "path";
+import readline from "readline";
 
 const printDivider = () => {
 	console.log(chalk.gray("-".repeat(50)));

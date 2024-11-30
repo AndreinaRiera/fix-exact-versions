@@ -1,14 +1,14 @@
 {
 	"name": "fix-exact-versions",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"description": "Global tool to fix project dependency versions to the exact versions from package-lock.json",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/AndreinaRiera/fix-exact-versions.git"
 	},
-	"main": "index.js",
+	"main": "index.mjs",
 	"bin": {
-		"fix-exact-versions": "index.js"
+		"fix-exact-versions": "index.mjs"
 	},
 	"keywords": [
 		"npm",
@@ -29,7 +29,7 @@
 	},
 	"scripts": {
 		"test": "echo \"No tests yet...\"",
-		"start": "node index.js"
+		"start": "node index.mjs"
 	},
 	"bugs": {
 		"url": "https://github.com/AndreinaRiera/fix-exact-versions/issues"
@@ -38,5 +38,6 @@
 	"engines": {
 		"node": ">=14.0.0"
 	},
-	"preferGlobal": true
+	"preferGlobal": true,
+	"type": "module"
 }
