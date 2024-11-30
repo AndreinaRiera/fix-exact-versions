@@ -36,8 +36,12 @@ function fixExactVersions(projectPath) {
 
 			if (packageLockConfigOject && packageLockConfigOject?.version) {
 				if (dependencies[dep] !== packageLockConfigOject.version) {
-					dependencies[dep] = packageLockJson.dependencies[dep].version;
-					console.log(`Updated "${dep}" to "${dependencies[dep]}".`);
+					const newVersion = packageLockConfigOject.version;
+
+					console.log(
+						`Updated "${dep}" - "${dependencies[dep]}" to "${newVersion}".`
+					);
+					dependencies[dep] = newVersion;
 				}
 			} else {
 				console.warn(`Warning: "${dep}" not found in package-lock.json.`);
