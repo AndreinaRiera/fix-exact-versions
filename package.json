@@ -1,0 +1,17 @@
+{
+	"name": "fix-exact-versions",
+	"version": "1.0.0",
+	"description": "Global tool to fix project dependency versions to the exact versions from package-lock.json",
+	"main": "index.js",
+	"bin": {
+		"fix-exact-versions": "index.js"
+	},
+	"keywords": [
+		"npm",
+		"package.json",
+		"package-lock.json",
+		"exact versions"
+	],
+	"author": "Andreina Riera",
+	"license": "MIT"
+}
